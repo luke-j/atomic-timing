@@ -25,6 +25,7 @@ The resolved object given by the `measure` function will be as follows:
 ```js
 {
   // Performance Resource Timimg API Properties
+  // These values are given as unix timestamps
   "navigationStart": Number,
   "unloadEventStart": Number,
   "unloadEventEnd": Number,
@@ -48,6 +49,7 @@ The resolved object given by the `measure` function will be as follows:
   "loadEventEnd": Number,
 
   // Custom computed metrics
+  // These values are given as durations in ms
   "ttci": Number,
   "ttfp": Number,
   "ttfcp": Number,

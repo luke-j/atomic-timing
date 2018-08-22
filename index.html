@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <script src="bin/setup.min.js"></script>
+  </head>
+  <body>
+    Results will appear here when ready...
+    <script src="bin/index.js"></script>
+    <script>
+      atomicTiming.measure()
+        .then(timing => {
+          console.log(timing)
+          document.write('<pre>' + JSON.stringify(timing, null, 2) + '</pre>')
+        })
+    </script>
+  </body>
+</html>

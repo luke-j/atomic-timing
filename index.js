@@ -16,11 +16,11 @@ export const measure = async () => {
           window.msPerformance ||
           window.mozPerformance
 
-        if (!performance) return
+        if (!performance) return Promise.resolve({})
 
         const t = performance.timing
 
-        if (!t) return
+        if (!t) return Promise.resolve({})
 
         const ttci = await ttiPolyfill.getFirstConsistentlyInteractive()
         const { __ttfp: ttfp = null, __ttfcp: ttfcp = null } = window
@@ -28,13 +28,13 @@ export const measure = async () => {
         const domProcessingTime = t.domComplete - t.domLoading
         const pageLoad = t.loadEventEnd - t.fetchStart
         const dnsLookupTime = t.domainLookupEnd - t.domainLookupStart
-        const redirectTime = t.redirectEnd - t.redirectStar
+        const redirectTime = t.redirectEnd - t.redirectStart
         const tcpConnectionTime = t.connectEnd - t.connectStart
         const ttfb = t.responseStart - t.requestStart
         const responseProcessingTime = t.responseEnd - t.responseStart
 
         resolve({
-          ...t,
+          ...t.toJSON(),
           ttci,
           ttfp,
           ttfcp,

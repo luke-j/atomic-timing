@@ -21,7 +21,8 @@ export default [
   {
     input: 'index.js',
     output: {
-      format: 'cjs',
+      format: 'umd',
+      name: 'atomicTiming',
       file: 'bin/index.js',
       globals: {
         window: 'window'
