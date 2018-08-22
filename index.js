@@ -18,60 +18,35 @@ export const measure = async () => {
 
         if (!performance) return
 
-        const timing = performance.timing
+        const t = performance.timing
 
-        if (!timing) return
+        if (!t) return
 
-        // window.timing interface & processing model
-        // https://www.w3.org/TR/navigation-timing/#sec-navigation-timing-interface
-        // https://www.w3.org/TR/navigation-timing/#processing-model
-        const {
-          navigationStart,
-          unloadEventStart,
-          unloadEventEnd,
-          redirectStart,
-          redirectEnd,
-          fetchStart,
-          domainLookupStart,
-          domainLookupEnd,
-          connectStart,
-          connectEnd,
-          secureConnectionStart,
-          requestStart,
-          responseStart,
-          responseEnd,
-          domLoading,
-          domInteractive,
-          domContentLoadedEventStart,
-          domContentLoadedEventEnd,
-          domComplete,
-          loadEventStart,
-          loadEventEnd
-        } = timing
-        const firstInputDelay = await new Promise(resolve => {
-          if (!perfMetrics) resolve(null)
-
-          perfMetrics.onFirstInputDelay(delay => resolve(delay))
-        })
         const ttci = await ttiPolyfill.getFirstConsistentlyInteractive()
         const { __ttfp: ttfp = null, __ttfcp: ttfcp = null } = window
+        const domContentLoaded = t.domContentLoadedEventEnd - t.fetchStart
+        const domProcessingTime = t.domComplete - t.domLoading
+        const pageLoad = t.loadEventEnd - t.fetchStart
+        const dnsLookupTime = t.domainLookupEnd - t.domainLookupStart
+        const redirectTime = t.redirectEnd - t.redirectStar
+        const tcpConnectionTime = t.connectEnd - t.connectStart
+        const ttfb = t.responseStart - t.requestStart
+        const responseProcessingTime = t.responseEnd - t.responseStart
 
-        resolve(
-          Object.assign({}, timing, {
-            firstInputDelay,
-            ttci,
-            ttfp,
-            ttfcp,
-            domContentLoaded: domContentLoadedEventEnd - fetchStart,
-            domProcessingTime: domComplete - domLoading,
-            pageLoad: loadEventEnd - fetchStart,
-            dnsLookupTime: domainLookupEnd - domainLookupStart,
-            redirectTime: redirectEnd - redirectStart,
-            tcpConnectionTime: connectEnd - connectStart,
-            ttfb: responseStart - requestStart,
-            responseProcessingTime: responseEnd - responseStart
-          })
-        )
+        resolve({
+          ...t,
+          ttci,
+          ttfp,
+          ttfcp,
+          domContentLoaded,
+          domProcessingTime,
+          pageLoad,
+          dnsLookupTime,
+          redirectTime,
+          tcpConnectionTime,
+          ttfb,
+          responseProcessingTime
+        })
       }, 0)
     })
   })

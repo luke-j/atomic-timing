@@ -2,19 +2,21 @@ import { terser } from 'rollup-plugin-terser'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import string from 'rollup-plugin-string'
-import multiEntry from 'rollup-plugin-multi-entry'
+import babel from 'rollup-plugin-babel'
 
 export default [
   {
-    input: [
-      'setup.js',
-      'node_modules/first-input-delay/dist/first-input-delay.min.js'
-    ],
+    input: 'setup.js',
     output: {
       format: 'iife',
       file: 'bin/setup.min.js'
     },
-    plugins: [multiEntry(), terser()]
+    plugins: [
+      terser(),
+      babel({
+        exclude: ['node_modules/**']
+      })
+    ]
   },
   {
     input: 'index.js',
@@ -33,6 +35,9 @@ export default [
       terser(),
       string({
         include: 'bin/setup.min.js'
+      }),
+      babel({
+        exclude: ['node_modules/**']
       })
     ]
   }

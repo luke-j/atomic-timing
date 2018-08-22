@@ -48,7 +48,6 @@ The resolved object given by the `measure` function will be as follows:
   "loadEventEnd": Number,
 
   // Custom computed metrics
-  "firstInputDelay": Number,
   "ttci": Number,
   "ttfp": Number,
   "ttfcp": Number,
