@@ -5,7 +5,7 @@ import setupString from './bin/setup.min.js'
 export const setup = setupString
 
 export const measure = async () => {
-  if (!window || 'addEventListener' in window) return Promise.resolve({})
+  if (!window || !('addEventListener' in window)) return Promise.resolve({})
 
   return new Promise(resolve => {
     window.addEventListener('load', () => {
