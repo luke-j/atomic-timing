@@ -18,6 +18,8 @@ const timings = await measure()
 
 _Note:_ the promise returned by the `measure` function will not resolve until the page is consistently interactive. Which, depending on your application, might be sometime.
 
+You must also BYO promise polyfill, if one is required.
+
 ### Timing response
 
 The resolved object given by the `measure` function will be as follows:

@@ -1,3 +1,16 @@
 {
-  "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+  "plugins": ["@babel/plugin-proposal-object-rest-spread"],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "targets": [
+          "> 1%",
+          "last 2 versions",
+          "not ie < 11"
+        ]
+      }
+    ]
+  ]
 }

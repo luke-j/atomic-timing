@@ -1,6 +1,6 @@
 {
   "name": "atomic-timing",
-  "version": "1.0.4-alpha",
+  "version": "1.0.5-alpha",
   "description": "Record browser timing information",
   "main": "bin/index.js",
   "author": {
@@ -17,6 +17,7 @@
   "devDependencies": {
     "@babel/core": "7.0.0-rc.2",
     "@babel/plugin-proposal-object-rest-spread": "7.0.0-rc.2",
+    "@babel/preset-env": "7.0.0",
     "eslint": "5.4.0",
     "husky": "0.14.3",
     "prettier": "1.14.2",
